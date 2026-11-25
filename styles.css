@@ -1,0 +1,257 @@
+/* ==========================================================================
+   Nick Schmidt — Minimalist Portfolio
+   Font: Helvetica | Colors: #FFFFFF / #000000
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --muted-color: #666666;
+  --font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+  --font-size-desktop: 13.5px;
+  --font-size-mobile: 14px;
+  --line-height: 1.24;
+  --pad-top: 22px;
+  --pad-x: 18px;
+  --pad-bottom: 18px;
+}
+
+html,
+body {
+  min-height: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size-desktop);
+  font-weight: 400;
+  line-height: var(--line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible {
+  outline: 1px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Desktop Grid Layout
+   Column 1: Brand (~12.5%) | Column 2: Nav (~26%) | Column 3: Text (1fr)
+   ========================================================================== */
+
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(120px, 12.8%) minmax(250px, 26%) 1fr;
+  grid-template-rows: auto 1fr auto;
+  align-items: start;
+}
+
+/* Flatten header & main wrappers on desktop so children participate in the
+   exact 3-column Figma grid while preserving semantic HTML structure. */
+.site-header,
+.site-main {
+  display: contents;
+}
+
+.site-brand {
+  grid-column: 1;
+  grid-row: 1;
+  padding: var(--pad-top) 12px 24px var(--pad-x);
+}
+
+.brand-link {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.brand-link:hover {
+  opacity: 0.55;
+}
+
+.project-nav {
+  grid-column: 2;
+  grid-row: 1;
+  padding: var(--pad-top) 16px 24px 0;
+}
+
+.project-list {
+  list-style: none;
+}
+
+.project-list li {
+  margin: 0;
+}
+
+.project-link {
+  display: inline-block;
+  transition: opacity 0.15s ease;
+}
+
+.project-link:hover {
+  opacity: 0.5;
+}
+
+.project-link.is-active {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Column 3: Project description aligned to exact same top baseline */
+.project-description,
+.legal-section {
+  grid-column: 3;
+  grid-row: 1;
+  padding: var(--pad-top) var(--pad-x) 24px 0;
+  max-width: 78ch;
+}
+
+.project-description p + p,
+.legal-section p + p {
+  margin-top: 1.24em;
+}
+
+.legal-section h1 {
+  font-size: inherit;
+  font-weight: 400;
+  margin-bottom: 1.24em;
+}
+
+/* Full-bleed exhibition media directly below the white header band */
+.project-media {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.media-figure {
+  width: 100%;
+  margin: 0;
+}
+
+.media-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Footer: anchored bottom-right on Home view, flows cleanly below on Project view */
+.site-footer {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--pad-bottom) var(--pad-x);
+}
+
+body.view-project .site-footer {
+  padding-top: 20px;
+}
+
+.legal-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.legal-link {
+  display: inline-block;
+  transition: opacity 0.15s ease;
+}
+
+.legal-link:hover {
+  opacity: 0.5;
+}
+
+.legal-link.is-active {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Tablet Adjustment (<= 1024px)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(110px, 16%) minmax(220px, 32%) 1fr;
+  }
+}
+
+/* ==========================================================================
+   Mobile Responsive Layout (<= 768px)
+   Clean stacked hierarchy matching exact typography, colors, and spacing
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  html,
+  body {
+    font-size: var(--font-size-mobile);
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .site-header,
+  .site-main {
+    display: block;
+    width: 100%;
+  }
+
+  .site-header {
+    padding: 18px 16px 0 16px;
+  }
+
+  .site-brand {
+    padding: 0 0 16px 0;
+  }
+
+  .project-nav {
+    padding: 0 0 20px 0;
+  }
+
+  .project-list li {
+    margin-bottom: 2px;
+  }
+
+  .site-main {
+    flex: 1 0 auto;
+  }
+
+  .project-description,
+  .legal-section {
+    padding: 0 16px 20px 16px;
+    max-width: 100%;
+  }
+
+  .project-media {
+    width: 100%;
+  }
+
+  .site-footer {
+    justify-content: flex-end;
+    padding: 20px 16px 16px 16px;
+  }
+}
